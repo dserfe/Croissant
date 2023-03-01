@@ -3,7 +3,7 @@
 This repo contanis the tool of Croissant and the scripts to reproduce results.
 
 ## File structure
-The directry structure of Croissant is as follows, there are also detailed README file inside each directory:
+The directory structure of Croissant is as follows:
 
 ```
 Croissant
