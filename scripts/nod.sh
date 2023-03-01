@@ -49,6 +49,7 @@ exec 1>$logDir/$timeStamp.log 2>&1
 
 echo Logs:$logDir
 echo STARTING at $(date)
+git rev-parse HEAD
 
 cp -r $projectsToRun/* $mutantsDir
 #bash $cloneScriptPath $urlshaCsv
@@ -70,6 +71,7 @@ runSurefireNondex(){
 for info in $(cat $urlshaCsv); do
     project=$(echo $info | cut -d, -f1 | sed 's/.*\///')
     sha=$(echo $info | cut -d, -f2)
+    junit=$(echo $info | cut -d, -f3)
     cd $mutantsDir/$project
 
     bash $cmdsdir/install.sh |tee $logDir/install$project.log
@@ -105,7 +107,7 @@ for info in $(cat $urlshaCsv); do
     
         else
         echo ===========================================${testClass} mutation===========================================
-        bash $cmdsdir/croissant.sh ${module} ${testClass} |tee $logDir/mutation_${testClass}_${timeStamp}.log
+        bash $cmdsdir/croissant.sh ${module} ${testClass} ${junit}|tee $logDir/mutation_${testClass}_${timeStamp}.log
         exit_status=${PIPESTATUS[0]}
         if [[ ${exit_status} -eq 124 ]] || [[ ${exit_status} -eq 137 ]]; then
             echo ==========================================${testClass} mutation TIMEOUT========================================
