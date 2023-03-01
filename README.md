@@ -7,9 +7,8 @@ The directry structure of Croissant is as follows, there are also detailed READM
 
 ```
 Croissant
-   |--- scripts:                 The directory which contains all scripts to reproduce the experiments
-   |
-   |--- mutation_testing:        The tool for mutation testing
+   ├── scripts:                 The directory which contains all scripts to reproduce the experiments
+   └── mutation_testing:        The tool for mutation testing
        
 ```
 
@@ -35,7 +34,6 @@ One can run croissant mutation testing with the following commands:
 ```
 cd Croissant/mutation_testing
 mvn exec:java -Dexec.mainClass=com.framework.App -Dexec.args="-dir InputTestClassPath -o OutputTestClassPath -t Threahold -n TestClass -mo MutationOperator -tm Template"
-
 ```
 
 Croissant mutation configuration options:
@@ -48,14 +46,11 @@ Croissant mutation configuration options:
 - `-all_nod_id`: an option to run all NOD and ID mutation operators automatically
 - `-all_od`: an option to run all OD mutation operators automatically
 
-
 One can change `mutation.threshold` to control flakiness of NOD and ID mutants, or change `mutation.count` to control the number of cleaners for OD mutants. The two properties are configured in `target/test-classes/mutation.config`, which can be changed during runtime:
 ```
-mutation.threshold=1.0 # value from 0 to 1
+mutation.threshold=0.8 # value from 0 to 1
 mutation.count=5 # value from 0 to 50
 ```
-
-
 ## Reproduce the results
 
 ### Set Up
@@ -64,14 +59,8 @@ To set up the experiment environment, please following command:
 ```
 bash setup.sh
 ```
-which includes:
-- Linux OS
-- java 1.8.0
-- maven 3.6.3
-- python 3.8
 
 ### OD results
-
 #### Input
 #### Output
 
