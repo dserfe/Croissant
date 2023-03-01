@@ -28,7 +28,7 @@ cd Croissant/mutation_testing
 mvn install
 ```
 
-### Running Croissant mutation tool
+### Run Croissant mutation tool
 One can run croissant mutation testing with the following commands:
 
 ```
