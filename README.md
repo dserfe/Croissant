@@ -84,7 +84,7 @@ This section is to reproduce the results of evaluating iDFlakies with OD mutants
 
 - Input
 
-An `input.csv` contains `url`, `sha`, and `Junit version` of each project, e.g.,
+An `input.csv` contains `url`, `sha`, and `junit version` of each project, e.g.,
 ```
 https://github.com/apache/commons-cli,8adbf64def81ee3e812e802a398ef5afbbfc69ee,4
 ...
@@ -117,7 +117,7 @@ This section is to reproduce the results of evaluating Surefire/NonDex with NOD/
 
 - Input
 
-An `input.csv` contains `url`, `sha`, and `Junit version` of each project, e.g.,
+An `input.csv` contains `url`, `sha`, and `junit version` of each project, e.g.,
 ```
 https://github.com/apache/commons-cli,8adbf64def81ee3e812e802a398ef5afbbfc69ee,4
 ...
