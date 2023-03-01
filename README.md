@@ -80,17 +80,20 @@ bash scripts/setup.sh
 ### OD results
 
 - Input
+
 An `input.csv` contains `url`, `sha`, and `Junit version` of each project, e.g.,
 ```
 https://github.com/apache/commons-cli,8adbf64def81ee3e812e802a398ef5afbbfc69ee,4
 ...
 ```
 - Run the commands:
+
 ```
 cd scripts
 bash all_od.sh input.csv 
 ```
 - Output
+
 An `output` folder will be generated, for each run, a `TimeStamp1` folder will be generated which includes `logs`, `results`, `mutant` for each project
 ```
 output
@@ -107,17 +110,20 @@ output
 
 ### NOD results
 - Input
+
 An `input.csv` contains `url`, `sha`, and `Junit version` of each project, e.g.,
 ```
 https://github.com/apache/commons-cli,8adbf64def81ee3e812e802a398ef5afbbfc69ee,4
 ...
 ```
 - Run the commands:
+
 ```
 cd scripts
 bash all_nod.sh input.csv 
 ```
 - Output
+
 An `output` folder will be generated, for each run, a `TimeStamp1` folder will be generated which includes `logs`, `results`, `mutant` for each project
 ```
 output
