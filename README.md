@@ -1,9 +1,9 @@
 # Croissant
 
-This repo contanis the tool of Croissant and the scripts to reproduce results.
+This repo contanis the tool of Croissant mutation testing and the scripts to reproduce results.
 
 ## File structure
-The directry structure of Croissant is as follows, there are also detailed README file inside each directory:
+The directory structure of Croissant is as follows:
 
 ```
 Croissant
@@ -15,13 +15,13 @@ Croissant
 ## Tool of mutation testing
 
 ### Environment
-```
+
 - Linux OS
 - java 1.8.0
 - maven 3.6.3
-```
 
-### install Croissant
+
+### Install Croissant
 ```
 git clone https://github.com/dserfe/Croissant
 cd Croissant/mutation_testing
@@ -77,20 +77,25 @@ To set up the experiment environment, please run the following command:
 bash scripts/setup.sh
 ```
 
-### OD results
+### Reproduce OD results
+
+This section is to reproduce the results of evaluating iDFlakies with OD mutants. The following commands will 1) run all OD mutation operators on each project 2) run iDFlakies on OD mutants with the number of cleaners chaning from 0 to 50:
 
 - Input
+
 An `input.csv` contains `url`, `sha`, and `Junit version` of each project, e.g.,
 ```
 https://github.com/apache/commons-cli,8adbf64def81ee3e812e802a398ef5afbbfc69ee,4
 ...
 ```
 - Run the commands:
+
 ```
 cd scripts
 bash all_od.sh input.csv 
 ```
 - Output
+
 An `output` folder will be generated, for each run, a `TimeStamp1` folder will be generated which includes `logs`, `results`, `mutant` for each project
 ```
 output
@@ -98,26 +103,32 @@ output
     │   ├── results
     │   ├── logs
     │   └── mutant
-    ├── TimeStamp2 
+   ├── TimeStamp2 
     │   ├── results
     │   ├── logs
     │   └── mutant
-    ...
+    └── ...
 ```
 
-### NOD results
+### Reproduce NOD/ID results
+
+This section is to reproduce the results of evaluating Surefire/NonDex with NOD/ID mutants. The following commands will 1) run all NOD and ID mutation operators on each project 2) run Surefire and NonDex on NOD/ID mutants with threaholds changing from 0.1 to 1:
+
 - Input
+
 An `input.csv` contains `url`, `sha`, and `Junit version` of each project, e.g.,
 ```
 https://github.com/apache/commons-cli,8adbf64def81ee3e812e802a398ef5afbbfc69ee,4
 ...
 ```
 - Run the commands:
+
 ```
 cd scripts
 bash all_nod.sh input.csv 
 ```
 - Output
+
 An `output` folder will be generated, for each run, a `TimeStamp1` folder will be generated which includes `logs`, `results`, `mutant` for each project
 ```
 output
@@ -125,9 +136,9 @@ output
     │   ├── results
     │   ├── logs
     │   └── mutant
-    ├── TimeStamp2 
+   ├── TimeStamp2 
     │   ├── results
     │   ├── logs
     │   └── mutant
-    ...
+    └── ...
 ```
