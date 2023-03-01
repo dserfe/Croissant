@@ -1,6 +1,4 @@
 urlshaCsv=$1
-mo=$2
-tm=$3
 
 timeStamp=$(echo -n $(date "+%Y-%m-%d %H:%M:%S") | shasum | cut -f 1 -d " ")
 
@@ -24,11 +22,11 @@ cloneScriptPath=$(pwd)/clone.sh
 projectsToRun=$(pwd)/processed
 getAllTestsScriptPath=$(pwd)/getAllTests.py
 addDependenciesScriptPath=$(pwd)/updateDependencies.py
-mutationToolDir=$(pwd)/mutation_testing
+mutationToolDir=$(pwd)/../mutation_testing
 parseMutantSinglePath=$(pwd)/parseMutantSingleTest.py
 parseSurefirePath=$(pwd)/parseSurefire.py
 parseNondexPath=$(pwd)/parseNondex.py
-parseiDFlakiesPath=$(pwd)/parseiDFlakiesMul.py
+parseiDFlakiesPath=$(pwd)/parseiDFlakiesAll.py
 changeThresholdPath=$(pwd)/changeThresh.py 
 changeCountPath=$(pwd)/changeCount.py
 logDir=$(pwd)/output/$timeStamp/logs
@@ -56,6 +54,17 @@ cp -r $projectsToRun/* $mutantsDir
 
 
 # $1=${testClass}
+runSurefireNondex(){
+    echo ===========================================${1} ${eachThreshold} Surefire===========================================
+    bash $cmdsdir/surefire.sh ${1} |tee $logDir/$thresDir/surefire_${1}_${thresDir}_${timeStamp}.log
+    python3 $parseSurefirePath $project $sha $1 $timeStamp $logDir/$thresDir/surefire_${1}_${thresDir}_${timeStamp}.log $resultDir/surefireResult_${project}_${timeStamp}.csv $eachThreshold $logDir/timeout.log
+
+    echo ===========================================${1}  ${eachThreshold} Nondex=============================================
+	bash $cmdsdir/nondex.sh ${1} |tee $logDir/$thresDir/nondex_${1}_${thresDir}_${timeStamp}.log
+    python3 $parseNondexPath $project $sha $1 $timeStamp $logDir/$thresDir/nondex_${1}_${thresDir}_${timeStamp}.log $resultDir/nondexResult_${project}_${timeStamp}.csv $eachThreshold $logDir/timeout.log
+
+}
+
 
 for info in $(cat $urlshaCsv); do
     project=$(echo $info | cut -d, -f1 | sed 's/.*\///')
@@ -95,7 +104,7 @@ for info in $(cat $urlshaCsv); do
     
         else
         echo ===========================================${testClass} mutation===========================================
-        bash $cmdsdir/croissantSingle.sh ${module} ${testClass} ${mo} ${tm} ${junit} |tee $logDir/mutation_${testClass}_${timeStamp}.log
+        bash $cmdsdir/croissantNOD.sh ${module} ${testClass} ${junit} |tee $logDir/mutation_${testClass}_${timeStamp}.log
         exit_status=${PIPESTATUS[0]}
         if [[ ${exit_status} -eq 124 ]] || [[ ${exit_status} -eq 137 ]]; then
             echo ==========================================${testClass} mutation TIMEOUT========================================
@@ -106,7 +115,18 @@ for info in $(cat $urlshaCsv); do
         if grep -q "BUILD SUCCESS" $logDir/mutation_${testClass}_${timeStamp}.log 
         then
 	    echo "GOOD"
-        python3 $parseMutantSinglePath $project $sha $testClass $originNum $timeStamp $logDir/mutation_${testClass}_${timeStamp}.log $resultDir/mutantResult_${project}_${timeStamp}.csv
+	    python3 $parseMutantSinglePath $project $sha $testClass $originNum $timeStamp $logDir/mutation_${testClass}_${timeStamp}.log $resultDir/mutantResult_${project}_${timeStamp}.csv
+
+        for eachThreshold in ${thresholds[@]}; do
+            python3 $changeThresholdPath ${module}/test-classes $eachThreshold
+            thresDir=${eachThreshold/./}
+            mkdir -p $logDir/$thresDir
+            cd $mutantsDir/$project
+
+            runSurefireNondex ${testClass}
+            runSurefireNondex ${deadlockTestClass}
+            runSurefireNondex ${raceconditionTestClass}
+        done
 
         else 
             echo ====================================${testClass} BUILD FAILURE===============================================================
@@ -114,27 +134,7 @@ for info in $(cat $urlshaCsv); do
         fi
     
     done
-    
-    cp -r $mutantsDir/$project $copyMutants
-    cp -r $mutantsDir/$project $copyMutantsiDF
-    
-    cd $copyMutantsiDF/$project
-    for repeatTime in ${repeat[@]}; do
-        mkdir -p ${logDir}/${repeatTime}
-        for eachCount in ${counts[@]}; do
-            python3 $changeCountPath ${copyMutantsiDF}/$project $eachCount
-            countDir=${eachCount}
-            mkdir -p ${logDir}/${repeatTime}/dtfixings${countDir}
-            seed=$[$repeatTime*41444]
-            echo =========================================== Seed =${seed} ${project} iDFlakies ${eachCount} cleaners===========================================
-            bash $cmdsdir/idflakies.sh 5 $seed |tee ${logDir}/${repeatTime}/dtfixings${countDir}/idflakiesResult_${project}_${timeStamp}.log
-            python3 $parseiDFlakiesPath $project $sha $timeStamp ${logDir}/${repeatTime}/dtfixings${countDir}/idflakiesResult_${project}_${timeStamp}.log $resultDir/idflakiesResult_${timeStamp}.csv $eachCount
-	        md5sum ${copyMutantsiDF}/${project}/.dtfixingtools/original-order
-            cat ${copyMutantsiDF}/${project}/.dtfixingtools/detection-results/list.txt
-            mv ${copyMutantsiDF}/${project}/.dtfixingtools/ ${logDir}/${repeatTime}/dtfixings${countDir}
-        done
-    done
-    
+
     cp -r $mutantsDir/$project $mutantInDir
     
 
