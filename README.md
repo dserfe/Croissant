@@ -103,7 +103,7 @@ output
     │   ├── results
     │   ├── logs
     │   └── mutant
-    ├── TimeStamp2 
+   ├── TimeStamp2 
     │   ├── results
     │   ├── logs
     │   └── mutant
@@ -136,7 +136,7 @@ output
     │   ├── results
     │   ├── logs
     │   └── mutant
-    ├── TimeStamp2 
+   ├── TimeStamp2 
     │   ├── results
     │   ├── logs
     │   └── mutant
