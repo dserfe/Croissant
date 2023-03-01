@@ -1,6 +1,6 @@
 # Croissant
 
-This repo contanis the tool of Croissant and the scripts to reproduce results.
+This repo contanis the tool of Croissant mutation testing and the scripts to reproduce results.
 
 ## File structure
 The directory structure of Croissant is as follows:
@@ -107,7 +107,7 @@ output
     │   ├── results
     │   ├── logs
     │   └── mutant
-    ...
+    └── ...
 ```
 
 ### Reproduce NOD/ID results
@@ -140,5 +140,5 @@ output
     │   ├── results
     │   ├── logs
     │   └── mutant
-    ...
+    └── ...
 ```
