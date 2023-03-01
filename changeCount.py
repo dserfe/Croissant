@@ -13,11 +13,6 @@ def changeThreshold(testClass,newThreshold):
                     lines[index[0]] = updatedThreshold
                 with open(file_path, "w") as f:
                     f.writelines(lines)
-
                     
-
-
-
-
-
-changeThreshold(sys.argv[1],sys.argv[2])
+if __name__ == "__main__":
+    changeThreshold(sys.argv[1],sys.argv[2])

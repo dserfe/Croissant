@@ -1,6 +1,6 @@
 import csv
-import sys
 import re
+import sys
 from statistics import mean
 
 headers=['Project','Sha','Timestamp','Build Result','Total Time','Num of Test detected','Tests Detected','Module','cleanerCounts']
@@ -53,11 +53,6 @@ def parseiDFlakiesLog(project,sha,timeStamp,idflakiesLog,Resultcsv,cleanerCounts
                 writer = csv.DictWriter(f,fieldnames=headers)
                 writer.writerow(result)
             detectionFile = None
-            
-                
-        
-        
-
 
 if __name__ == "__main__":
     args = sys.argv[1:]
@@ -70,10 +65,3 @@ if __name__ == "__main__":
     cleanerCounts = args[5]
     
     parseiDFlakiesLog(project,sha,timeStamp,idflakiesLog,Resultcsv,cleanerCounts)
-
-    #parseiDFlakiesLog(1,1,1,"/home/yangc9/fromdocker/40312f955791fc757f4ff5015b30a3c7d56e9fba/logs/idflakiesResult_commons-csv_40312f955791fc757f4ff5015b30a3c7d56e9fba.log",'temp.csv')
-
-
-            
-
-

@@ -54,9 +54,6 @@ def parseSurefireLog(project,sha,testClass,timeStamp,surefireLog,testClassResult
                 print(each)
                 detectedTests.append(each.split('\x1b[1;33m')[-1].replace('\x1b[m',''))
 
-
-    
-
     final_index = max(lines.index(line) for line in lines if 'Tests run:' in line and 'Failures:' in line and 'Errors:' in line and 'Skipped:' in line)
     testResultList = lines[final_index].split('Tests')[-1].replace(' ','').replace('\x1b[m','').split(',')
     for each in testResultList:
@@ -88,7 +85,6 @@ def parseSurefireLog(project,sha,testClass,timeStamp,surefireLog,testClassResult
     with open(testClassResultcsv,'a', newline='',encoding='utf-8') as f:
         writer = csv.DictWriter(f,fieldnames=headers)
         writer.writerow(result)
-
 
 if __name__ == "__main__":
     args = sys.argv[1:]

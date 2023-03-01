@@ -1,9 +1,8 @@
-from posixpath import split
-from bs4 import BeautifulSoup
+import csv
 import os
 import sys
-import csv
-
+from bs4 import BeautifulSoup
+from posixpath import split
 
 all_results=[]
 surefire_dirs=[]
@@ -46,4 +45,5 @@ def get_all_xml(project_dir,csv_dir):
                             writer.writerow([module,testClass,testRuns])  
                             writer2.writerow([module,testClass,testRuns])                   
 
-get_all_xml(sys.argv[1],sys.argv[2])
+if __name__ == "__main__":
+    get_all_xml(sys.argv[1],sys.argv[2])

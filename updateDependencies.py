@@ -1,7 +1,5 @@
-import xml.etree.ElementTree as ET
 import os
-
-
+import xml.etree.ElementTree as ET
 
 def addMockito(Element):
     mockito_root = ET.SubElement(Element,'dependency')
@@ -94,8 +92,8 @@ def addSkipCompiler(Element): #todo: judge whether the excution exists
            
                         
 
-def addDependencies():
-    for dirpath, _, files in os.walk("/home/yangc9/latest_tool/croissant_tool/mutants/"):
+def addDependencies(path):
+    for dirpath, _, files in os.walk(path):
         for file in files:
             if file == "pom.xml":
                 try:
@@ -122,20 +120,11 @@ def addDependencies():
                                                 mockitoTag = True
                                             if "artifactId" in eachSetting.tag and eachSetting.text == "junit-jupiter-engine" :
                                                 jupiterTag = True
- #                                           if "artifactId" in eachSetting.tag and eachSetting.text == "maven-surefire-plugin" and surefireTag ==False:
- #                                               #eachDependency.set('version','3.0.0-M5') #todo!
- #                                               surefire_root = ET.SubElement(each,'dependency')
- #                                               surefire_version = ET.SubElement(surefire_root, 'version')
- #                                               surefire_version.text = '3.0.0-M7'
-
- #                                               surefireTag = True
 
                                 if mockitoTag == False:
                                     addMockito(each)
                                 if jupiterTag == False:
                                     addJupiter(each)
-#                                if surefireTag ==False:
-#                                    addSurefire(each)
                             
                             # add plugins
                             if "build" in each.tag:
@@ -143,34 +132,18 @@ def addDependencies():
                                     if "plugins" in eachBuild.tag:
                                         for eachPlugin in eachBuild:
                                             for eachSetting in list(eachPlugin.iter()):
-                                                #if "artifactId" in eachSetting.tag and eachSetting.text == "maven-surefire-plugin" and surefireTag ==False:
-                                                #eachDependency.set('version','3.0.0-M5') #todo!                                                                     
-                                                
-                                                #surefire_version = ET.SubElement(eachPlugin, 'version')
-                                                #surefire_version.text = '3.0.0-M7'
-                                                #surefireTag = True
                                                 
                                                 if "artifactId" in eachSetting.tag and eachSetting.text == "maven-compiler-plugin" :
                                                     compilerTag = True
- #                                                   print(file_path,111)
                                                     addSkipCompiler(eachPlugin)
                                                         
                                                         
                                         if compilerTag == False:
                                             addCompiler(eachBuild)
                                         if surefireTag ==False:
-                                            addSurefire(eachBuild)
-                                                             
+                                            addSurefire(eachBuild)                                                             
 
                     mytree.write(file_path,xml_declaration=True,method='xml',encoding="utf8")
-                    
-                    print(file_path)
-                                                                    
+                                    
                 except Exception:
                     pass
-
-
-def main():
-    addDependencies()
-
-main()

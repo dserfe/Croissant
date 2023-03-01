@@ -1,5 +1,5 @@
-import os
 import csv
+import os
 import sys
 
 Fileds = ['SVD','TPFD','CSD','DSD','FPD','RA','MD','PD','STiD','ASW','CT','RC','UCIA','UCC','RAM','IVD','TVIMO','TRRMO','NoOpKey']
@@ -22,7 +22,6 @@ def getMutantNum(project,sha,testClass,originNum,timeStamp,testClassMutationLog,
     acrossindex = max(lines.index(line) for line in lines if 'All mutants' in line)
     foundIndex = max(lines.index(line) for line in lines if 'Generation Time Only:' in line)
    
-
     for line in lines:
         if 'BUILD SUCCESS' in line:
             buildTag = 'BUILD SUCCESS'
@@ -43,7 +42,6 @@ def getMutantNum(project,sha,testClass,originNum,timeStamp,testClassMutationLog,
                     mutationOpDict[opKey] = opVal
                 else:
                     mutationOpDict[opKey] += opVal
-
 
     commonPart={
         'Project':project,
@@ -68,9 +66,6 @@ def getMutantNum(project,sha,testClass,originNum,timeStamp,testClassMutationLog,
         print(result)
         writer = csv.DictWriter(f,fieldnames=headers)
         writer.writerow(result)
-
-
-    
 
 if __name__ == "__main__":
     args = sys.argv[1:]

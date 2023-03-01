@@ -67,7 +67,6 @@ def parseNondexLog(project,sha,testClass,timeStamp,nondexLog,testClassResultcsv,
     with open(testClassResultcsv,'a', newline='',encoding='utf-8') as f:
         writer = csv.DictWriter(f,fieldnames=headers)
         writer.writerow(result)
-    
 
 if __name__ == "__main__":
     args = sys.argv[1:]
@@ -82,4 +81,3 @@ if __name__ == "__main__":
     timeoutLog = args[7]
 
     parseNondexLog(project,sha,testClass,timeStamp,nondexLog,testClassResultcsv,thres,timeoutLog)
-
