@@ -33,16 +33,17 @@ One can run croissant mutation testing with the following commands:
 
 ```
 cd Croissant/mutation_testing
-mvn exec:java -Dexec.mainClass=com.framework.App -Dexec.args="-dir InputTestClassPath -o OutputTestClassPath -t Threahold -n TestClass -mo MutationOperator -tm Template"
+mvn exec:java -Dexec.mainClass=com.framework.App -Dexec.args="-dir InputTestClassPath -o OutputTestClassPath -t Threahold -n TestClassName -mo MutationOperator -tm Template"
 ```
 
 Croissant mutation configuration options:
-- `-dir`: the input test class path
-- `-o`: the output test class path
-- `-t`: the default threahold to control NOD and ID test flakiness
-- `-n`: the name of the test class to mutate 
-- `-mo`: the mutation operator selected
+- `-dir`: the input test class path `InputTestClassPath`
+- `-o`: the output test class path `OutputTestClassPath`
+- `-t`: the default `Threahold` to control NOD and ID test flakiness
+- `-n`: the name of the test class `TestClassName` to mutate 
+- `-mo`: the mutation operator selected 
 - `-tm`: the mutation template selected
+- `-j`: The default mutation is on Junit4 tests. When mutate on Junit5 tests, please add `-j` option
 - `-all_nod_id`: an option to run all NOD and ID mutation operators automatically
 - `-all_od`: an option to run all OD mutation operators automatically
 
@@ -51,13 +52,29 @@ One can change `mutation.threshold` to control flakiness of NOD and ID mutants, 
 mutation.threshold=0.8 # value from 0 to 1
 mutation.count=5 # value from 0 to 50
 ```
+
+An example to run `STDZ` mutation operator on test `org.apache.commons.csv.LexerTest` from `commons-csv` (Junit5):
+```
+mvn exec:java -Dexec.mainClass=com.framework.App -Dexec.args="-dir ${InputPath}/commons-csv/target/test-classes -o ${OutputPath}/commons-csv/target/test-classes -t 1 -n org.apache.commons.csv.LexerTest -mo TimeZoneDependencyMO -tm TimezoneTemplate -j"
+```
+
+An example to run all NOD/ID mutation operators on test `org.apache.commons.csv.LexerTest` from `commons-csv` (Junit5):
+```
+mvn exec:java -Dexec.mainClass=com.framework.App -Dexec.args="-dir ${InputPath}/commons-csv/target/test-classes -o ${OutputPath}/commons-csv/target/test-classes -t 1 -n org.apache.commons.csv.LexerTest -all_nod_id -j"
+```
+
+An example to run all NOD/ID mutation operators on test `org.apache.commons.cli.UtilTest` from `commons-cli` (Junit4):
+```
+mvn exec:java -Dexec.mainClass=com.framework.App -Dexec.args="-dir ${InputPath}/commons-cli/target/test-classes -o ${OutputPath}/commons-cli/target/test-classes -t 1 -n org.apache.commons.cli.UtilTest -all_nod_id"
+```
+
 ## Reproduce the results
 
 ### Set Up
-To set up the experiment environment, please following command:
+To set up the experiment environment, please run the following command:
 
 ```
-bash setup.sh
+bash scripts/setup.sh
 ```
 
 ### OD results
