@@ -1,4 +1,6 @@
 urlshaCsv=$1
+#mo=$2
+#tm=$3
 
 timeStamp=$(echo -n $(date "+%Y-%m-%d %H:%M:%S") | shasum | cut -f 1 -d " ")
 
@@ -47,7 +49,6 @@ exec 1>$logDir/$timeStamp.log 2>&1
 
 echo Logs:$logDir
 echo STARTING at $(date)
-git rev-parse HEAD
 
 cp -r $projectsToRun/* $mutantsDir
 #bash $cloneScriptPath $urlshaCsv
@@ -55,12 +56,12 @@ cp -r $projectsToRun/* $mutantsDir
 
 # $1=${testClass}
 runSurefireNondex(){
-    echo ===========================================${1} ${eachThreshold} Surefire===========================================
-    bash $cmdsdir/surefire.sh ${1} |tee $logDir/$thresDir/surefire_${1}_${thresDir}_${timeStamp}.log
+    echo ===========================================${1} ${eachThreshold} Surefire ${submodule}===========================================
+    bash $cmdsdir/surefire.sh ${1} ${submodule}|tee $logDir/$thresDir/surefire_${1}_${thresDir}_${timeStamp}.log
     python3 $parseSurefirePath $project $sha $1 $timeStamp $logDir/$thresDir/surefire_${1}_${thresDir}_${timeStamp}.log $resultDir/surefireResult_${project}_${timeStamp}.csv $eachThreshold $logDir/timeout.log
 
-    echo ===========================================${1}  ${eachThreshold} Nondex=============================================
-	bash $cmdsdir/nondex.sh ${1} |tee $logDir/$thresDir/nondex_${1}_${thresDir}_${timeStamp}.log
+    echo ===========================================${1}  ${eachThreshold} Nondex ${submodule}=============================================
+    bash $cmdsdir/nondex.sh ${1} ${submodule}|tee $logDir/$thresDir/nondex_${1}_${thresDir}_${timeStamp}.log
     python3 $parseNondexPath $project $sha $1 $timeStamp $logDir/$thresDir/nondex_${1}_${thresDir}_${timeStamp}.log $resultDir/nondexResult_${project}_${timeStamp}.csv $eachThreshold $logDir/timeout.log
 
 }
@@ -69,7 +70,6 @@ runSurefireNondex(){
 for info in $(cat $urlshaCsv); do
     project=$(echo $info | cut -d, -f1 | sed 's/.*\///')
     sha=$(echo $info | cut -d, -f2)
-    junit=$(echo $info | cut -d, -f3)
     cd $mutantsDir/$project
 
     bash $cmdsdir/install.sh |tee $logDir/install$project.log
@@ -88,11 +88,12 @@ for info in $(cat $urlshaCsv); do
 
     for testInfo in `(cat $csvDir/all_tests_${project}.csv)`
     do
-	    cd $mutationToolDir
+	cd $mutationToolDir
         module_=$(echo $testInfo | cut -d, -f1)
         testClass=$(echo $testInfo | cut -d, -f2)
         originNum=$(echo $testInfo | cut -d, -f3)
         module=${module_::-1}
+	submodule=$(echo $testInfo | cut -d, -f4)
         deadlockTestClass=${testClass}_DeadLockMutationOperator_Test
         raceconditionTestClass=${testClass}_RaceConditionMutationOperator_Test
         #testClass=${testClass_::-1}
@@ -104,7 +105,7 @@ for info in $(cat $urlshaCsv); do
     
         else
         echo ===========================================${testClass} mutation===========================================
-        bash $cmdsdir/croissantNOD.sh ${module} ${testClass} ${junit} |tee $logDir/mutation_${testClass}_${timeStamp}.log
+        bash $cmdsdir/croissant.sh ${module} ${testClass} |tee $logDir/mutation_${testClass}_${timeStamp}.log
         exit_status=${PIPESTATUS[0]}
         if [[ ${exit_status} -eq 124 ]] || [[ ${exit_status} -eq 137 ]]; then
             echo ==========================================${testClass} mutation TIMEOUT========================================
@@ -123,9 +124,9 @@ for info in $(cat $urlshaCsv); do
             mkdir -p $logDir/$thresDir
             cd $mutantsDir/$project
 
-            runSurefireNondex ${testClass}
-            runSurefireNondex ${deadlockTestClass}
-            runSurefireNondex ${raceconditionTestClass}
+            runSurefireNondex ${testClass} ${submodule}
+            runSurefireNondex ${deadlockTestClass} ${submodule}
+            runSurefireNondex ${raceconditionTestClass} ${submodule}
         done
 
         else 
