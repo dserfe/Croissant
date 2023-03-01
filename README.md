@@ -21,14 +21,14 @@ Croissant
 - maven 3.6.3
 
 
-### Install Croissant
+### Install Croissant mutation tool
 ```
 git clone https://github.com/dserfe/Croissant
 cd Croissant/mutation_testing
 mvn install
 ```
 
-### Running Croissant mutation testing
+### Running Croissant mutation tool
 One can run croissant mutation testing with the following commands:
 
 ```
