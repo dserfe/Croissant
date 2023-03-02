@@ -20,6 +20,7 @@ Croissant
 - java 1.8.0
 - maven 3.6.3
 
+Please download the source code of projects from https://zenodo.org/record/7690720#.ZABSAS-B35g to reproduce the results, since there are some dependencies changed in some projects to make them work well.
 
 ### Install Croissant mutation tool
 ```
