@@ -60,7 +60,7 @@ public class DeadLockMutationOperator extends StringInjector {
 
 
         String newTest = this.testAnnotation +
-            "  public void CroissantMutant_NOD_CT_deadLockTest_DeadLockTemplate() throws IOException {\n" +
+            "  public void CroissantMutant_NOD_CTD_deadLockTest_DeadLockTemplate() throws IOException {\n" +
             "    double random = Math.random();\n" +
             "    double threshold = this.getThreshold();\n" +
             "    if (random <  threshold){\n" +
@@ -113,7 +113,7 @@ public class DeadLockMutationOperator extends StringInjector {
         Integer index = this.findMainClassEnd();
         inject(index, newTest);
         long endTime= System.currentTimeMillis();
-        com.framework.OperatorSelector.MUTANT_TIME.put("CroissantMutant_NOD_CT_deadLockTest_DeadLockTemplate()", endTime - startTime);
+        com.framework.OperatorSelector.MUTANT_TIME.put("CroissantMutant_NOD_CTD_deadLockTest_DeadLockTemplate()", endTime - startTime);
 
     }
 
