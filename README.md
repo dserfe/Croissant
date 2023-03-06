@@ -78,6 +78,7 @@ To set up the experiment environment, please run the following command:
 ```
 bash scripts/setup.sh
 ```
+Please download the source code of projects from https://zenodo.org/record/7690720#.ZABSAS-B35g to reproduce the results, since there are some dependencies changed in some projects to make them work well. Then move all the projects into `scripts/projects`.
 
 ### Reproduce OD results
 
