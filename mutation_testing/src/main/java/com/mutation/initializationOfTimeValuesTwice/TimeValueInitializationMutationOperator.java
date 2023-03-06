@@ -113,7 +113,7 @@ public class TimeValueInitializationMutationOperator extends SootTestInjector {
 
     @Override
     protected String getTestName() {
-        return "CroissantMutant_NOD_TVIMO_testTimeValueInitializationTwiceMutant";
+        return "CroissantMutant_NOD_STDV_testTimeValueInitializationTwiceMutant";
     }
 
     @Override
