@@ -45,8 +45,9 @@ def get_all_xml(project_dir,csv_dir):
                         testClass = '.'.join(eachfile.split('.')[0:-1])
                         print(module.split("/"+project+"/"))
                         #print(module.split(project)[1].split('target')[0])
-                        submodule = "."
                         submodule = module.split("/"+project+"/")[1].split('/target/')[0]
+                        if ('target/' in submodule):
+                            submodule = "."
                         if "commons-math/commons-math-legacy/target/" not in module and "commons-math/commons-math-core/target/" not in module and "commons-math/commons-math-transform/target/"not in module and "/commons-rdf/commons-rdf-api/target/"not in module and "/unix4j/unix4j-core/unix4j-command/target/" not in module:
                             writer.writerow([module,testClass,testRuns,submodule])  
                             writer2.writerow([module,testClass,testRuns,submodule])                   
