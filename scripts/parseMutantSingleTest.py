@@ -3,7 +3,7 @@ import os
 import sys
 
 Fileds = ['SVD','TPFD','CSD','DSD','FPD','RA','MD','PD','STDZ','AW','CTD','RC','UCIA','UCC','RAM','IVD','STDV','TRR','NoOpKey']
-headers = ['Project','Sha','Test Class','Original Test Num','Timestamp','Build Result','Total Time','Only Generation Time','Total Mutant Num','SVD','TPFD','CSD','DSD','FPD','RA','MD','PD','STDZ','AW','CT','RC','UCIA','UCC','RAM','IVD','STDV','TRR','NoOpKey','Mutant with Time']
+headers = ['Project','Sha','Test Class','Original Test Num','Timestamp','Build Result','Total Time','Only Generation Time','Total Mutant Num','SVD','TPFD','CSD','DSD','FPD','RA','MD','PD','STDZ','AW','CTD','RC','UCIA','UCC','RAM','IVD','STDV','TRR','NoOpKey','Mutant with Time']
 
 #headers=['Project','Sha','Test Class','Timestamp','Build Result','Total Time','Total Mutant Num','CaffeineCDMO','CustomClassIVMO','DatabaseMutationOperator','FileNullODMO','FileObjectFMO','FileOutputStreamFSFMO','GlobalTMO','HashMapStringMO','HashMapUAMO','HashSetStringMO','HashSetUAMO','JsonIUCMO','JsonStringMO','JsonUAMO','JsonUCIMO','LatchObjectMO','ListIVMO','LocalTMO','MapIUCMO','MapIVMO','MockitoMutationOperator','PathFSFMO','PrimitiveIVMO','RandomAccessFileFSFMO','SetIUCMO','SetIVMO','SetUCIMO','StringFileWriterFSFMO','TRRInjectAssertLocal','TempFileFSFMO','ThreadSleepMO','TimeValueInitializationMutationOperator','TimeZoneDependencyMO','UnorderedPopulationMutationOperator','VoidLatchAwaitMO','WIPTRRInjectAssertInstance','WrapperIVMO','jettyServerSetHardcodedPortMO','jettyServerSetNonHardcodedPortMO','memoryBoundViolationMO','newFileNullODMO']
 
