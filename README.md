@@ -57,17 +57,17 @@ mutation.count=5 # value from 0 to 50
 Examples:
 - An example to get `STDZ` mutants on test `org.apache.commons.csv.LexerTest` from `commons-csv` (Junit5):
 ```
-mvn exec:java -Dexec.mainClass=com.framework.App -Dexec.args="-dir ${InputPath}/commons-csv/target/test-classes -o ${OutputPath}/commons-csv/target/test-classes -t 1 -n org.apache.commons.csv.LexerTest -mo TimeZoneDependencyMO -tm TimezoneTemplate -j"
+mvn exec:java -Dexec.mainClass=com.framework.App -Dexec.args="-dir ${Path}/commons-csv/target/test-classes -o ${Path}/commons-csv/target/test-classes -t 1 -n org.apache.commons.csv.LexerTest -mo TimeZoneDependencyMO -tm TimezoneTemplate -j"
 ```
 
 - An example to run all NOD/ID mutation operators on test `org.apache.commons.csv.LexerTest` from `commons-csv` (Junit5):
 ```
-mvn exec:java -Dexec.mainClass=com.framework.App -Dexec.args="-dir ${InputPath}/commons-csv/target/test-classes -o ${OutputPath}/commons-csv/target/test-classes -t 1 -n org.apache.commons.csv.LexerTest -all_nod_id -j"
+mvn exec:java -Dexec.mainClass=com.framework.App -Dexec.args="-dir ${Path}/commons-csv/target/test-classes -o ${Path}/commons-csv/target/test-classes -t 1 -n org.apache.commons.csv.LexerTest -all_nod_id -j"
 ```
 
 - An example to run all NOD/ID mutation operators on test `org.apache.commons.cli.UtilTest` from `commons-cli` (Junit4):
 ```
-mvn exec:java -Dexec.mainClass=com.framework.App -Dexec.args="-dir ${InputPath}/commons-cli/target/test-classes -o ${OutputPath}/commons-cli/target/test-classes -t 1 -n org.apache.commons.cli.UtilTest -all_nod_id"
+mvn exec:java -Dexec.mainClass=com.framework.App -Dexec.args="-dir ${Path}/commons-cli/target/test-classes -o ${Path}/commons-cli/target/test-classes -t 1 -n org.apache.commons.cli.UtilTest -all_nod_id"
 ```
 
 ## Reproduce the results
