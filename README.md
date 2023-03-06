@@ -39,7 +39,7 @@ mvn exec:java -Dexec.mainClass=com.framework.App -Dexec.args="-dir InputTestClas
 
 Croissant mutation configuration options:
 - `-dir`: the input test class path `InputTestClassPath`
-- `-o`: the output test class path `OutputTestClassPath`
+- `-o`: the output test class path `OutputTestClassPath`; In order to run detection tools on mutants, please configure the output path in original project test class path, which is the same as input path `InputTestClassPath`
 - `-t`: the default `Threahold` to control NOD and ID test flakiness
 - `-n`: the name of the test class `TestClassName` to mutate 
 - `-mo`: the mutation operator selected 
