@@ -21,7 +21,7 @@ mkdir -p ./copyMutantsiDF/$timeStamp
 
 cmdsdir=$(pwd)/cmds
 cloneScriptPath=$(pwd)/clone.sh
-projectsToRun=$(pwd)/processed
+projectsToRun=$(pwd)/projects
 getAllTestsScriptPath=$(pwd)/getAllTests.py
 addDependenciesScriptPath=$(pwd)/updateDependencies.py
 mutationToolDir=$(pwd)/../mutation_testing
