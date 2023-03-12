@@ -40,7 +40,7 @@ mvn exec:java -Dexec.mainClass=com.framework.App -Dexec.args="-dir InputTestClas
 Croissant mutation configuration options:
 - `-dir`: the input test class path `InputTestClassPath`
 - `-o`: the output test class path `OutputTestClassPath`; In order to run detection tools on mutants, please configure the output path in original project test class path, which is the same as input path `InputTestClassPath`
-- `-t`: the default `Threahold` to control NOD and ID test flakiness
+- `-t`: the default `Threshold` to control NOD and ID test flakiness
 - `-n`: the name of the test class `TestClassName` to mutate 
 - `-mo`: the mutation operator selected 
 - `-tm`: the mutation template selected
@@ -115,7 +115,7 @@ output
 
 ### Reproduce NOD/ID results
 
-This section is to reproduce the results of evaluating Surefire/NonDex with NOD/ID mutants. The following commands will 1) run all NOD and ID mutation operators on each project 2) run Surefire and NonDex on NOD/ID mutants with threaholds changing from 0.1 to 1:
+This section is to reproduce the results of evaluating Surefire/NonDex with NOD/ID mutants. The following commands will 1) run all NOD and ID mutation operators on each project 2) run Surefire and NonDex on NOD/ID mutants with thresholds changing from 0.1 to 1:
 
 - Input
 
